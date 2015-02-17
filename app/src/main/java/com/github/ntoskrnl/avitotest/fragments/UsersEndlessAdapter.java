@@ -22,12 +22,12 @@ public class UsersEndlessAdapter extends EndlessAdapter {
 
     private static final String TAG = UsersEndlessAdapter.class.getSimpleName();
 
-    private final List<String> cachedData = new ArrayList<>();
+    private final List<User> cachedData = new ArrayList<>();
     private final GitHubService service;
 
     private volatile long since = 0;
 
-    public UsersEndlessAdapter(ArrayAdapter<String> wrapped) {
+    public UsersEndlessAdapter(ArrayAdapter<User> wrapped) {
         super(wrapped);
         service = GitHub.getInstance().getService();
         setSerialized(true);
@@ -39,7 +39,7 @@ public class UsersEndlessAdapter extends EndlessAdapter {
         List<User> users = service.listUsers(since);
         if (users != null) {
             for (User user : users) {
-                cachedData.add(user.getId() + " " + user.getLogin());
+                cachedData.add(user);
                 if (user.getId() > since) {
                     since = user.getId();
                 }
@@ -48,10 +48,19 @@ public class UsersEndlessAdapter extends EndlessAdapter {
         return !cachedData.isEmpty();
     }
 
+    public void refresh() {
+        restartAppending();
+        @SuppressWarnings("unchecked")
+        ArrayAdapter<User> adapter = (ArrayAdapter<User>) getWrappedAdapter();
+        adapter.clear();
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     protected View getPendingView(ViewGroup parent) {
         View row = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, null);
         ((TextView) row.findViewById(android.R.id.text1)).setText("Loading content...");
+        row.setClickable(false);
         return row;
     }
 
@@ -65,8 +74,8 @@ public class UsersEndlessAdapter extends EndlessAdapter {
     @Override
     protected void appendCachedData() {
         @SuppressWarnings("unchecked")
-        ArrayAdapter<String> wrapped = (ArrayAdapter<String>) getWrappedAdapter();
-        for (String item: cachedData) {
+        ArrayAdapter<User> wrapped = (ArrayAdapter<User>) getWrappedAdapter();
+        for (User item: cachedData) {
             wrapped.add(item);
         }
         cachedData.clear();

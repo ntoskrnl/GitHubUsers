@@ -1,5 +1,6 @@
 package com.github.ntoskrnl.avitotest.rest;
 
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 
 /**
@@ -12,11 +13,18 @@ public class GitHub {
     private GitHubService service;
 
     private GitHub() {
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint("https://api.github.com")
-                .build();
+        RestAdapter.Builder builder = new RestAdapter.Builder()
+                .setEndpoint("https://api.github.com");
 
-        service = restAdapter.create(GitHubService.class);
+        builder.setRequestInterceptor(new RequestInterceptor() {
+            @Override
+            public void intercept(RequestFacade request) {
+                request.addHeader("Accept", "application/json");
+                request.addHeader("Authorization","Bearer ee5e0ba0b760515b786f96013def2f6bf8dfab9f");
+            }
+        });
+
+        service = builder.build().create(GitHubService.class);
     }
 
     public static GitHub getInstance() {

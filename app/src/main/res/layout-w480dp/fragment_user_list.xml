@@ -3,10 +3,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity$PlaceholderFragment">
 
+
     <ListView
         android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="480dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
     </ListView>
 

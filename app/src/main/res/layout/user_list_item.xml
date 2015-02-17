@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/avatar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="4dp"/>
+
+    <TextView
+        android:id="@+id/profile_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="[profile_url]"
+        android:textStyle="italic"
+        android:layout_alignRight="@+id/login"
+        android:layout_alignLeft="@+id/login"
+        android:layout_alignBottom="@id/login"
+        android:ellipsize="middle"/>
+
+    <TextView
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="[login]"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/primary_dark_material_dark"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/avatar"
+        android:layout_toEndOf="@+id/avatar"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:ellipsize="end"/>
+
+</RelativeLayout>
