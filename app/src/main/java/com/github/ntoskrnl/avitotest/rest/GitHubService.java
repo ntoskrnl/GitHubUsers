@@ -1,5 +1,9 @@
 package com.github.ntoskrnl.avitotest.rest;
 
+import com.github.ntoskrnl.avitotest.rest.json.User;
+
+import java.util.List;
+
 import retrofit.http.GET;
 import retrofit.http.Query;
 
@@ -11,6 +15,6 @@ import retrofit.http.Query;
 public interface GitHubService {
 
     @GET("/users")
-    retrofit.client.Response listUsers(@Query("since") long since);
+    List<User> listUsers(@Query("since") long since);
 
 }

@@ -11,13 +11,9 @@ import com.commonsware.cwac.endless.EndlessAdapter;
 import com.github.ntoskrnl.avitotest.rest.GitHub;
 import com.github.ntoskrnl.avitotest.rest.GitHubService;
 import com.github.ntoskrnl.avitotest.rest.json.User;
-import com.github.ntoskrnl.avitotest.utils.RetrofitTools;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit.client.Response;
 
 /**
  * Created by Anton Danshin on 17/02/15.
@@ -40,12 +36,7 @@ public class UsersEndlessAdapter extends EndlessAdapter {
 
     @Override
     protected boolean cacheInBackground() throws Exception {
-        Response response = service.listUsers(since);
-        @SuppressWarnings("unchecked")
-        List<User> users = (List<User>) RetrofitTools.getBodyAs(
-                response,
-                new TypeToken<List<User>>(){}.getType()
-        );
+        List<User> users = service.listUsers(since);
         if (users != null) {
             for (User user : users) {
                 cachedData.add(user.getId() + " " + user.getLogin());
