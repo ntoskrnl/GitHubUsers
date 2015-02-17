@@ -10,6 +10,8 @@ public class GitHub {
 
     private static volatile GitHub instance = null;
 
+    private static final String GITHUB_ACCESS_TOKEN = "ee5e0ba0b760515b786f96013def2f6bf8dfab9f";
+
     private GitHubService service;
 
     private GitHub() {
@@ -20,7 +22,7 @@ public class GitHub {
             @Override
             public void intercept(RequestFacade request) {
                 request.addHeader("Accept", "application/json");
-                request.addHeader("Authorization","Bearer ee5e0ba0b760515b786f96013def2f6bf8dfab9f");
+                request.addHeader("Authorization","Bearer " + GITHUB_ACCESS_TOKEN);
             }
         });
 

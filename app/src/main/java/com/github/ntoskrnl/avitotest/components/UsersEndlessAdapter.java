@@ -1,4 +1,4 @@
-package com.github.ntoskrnl.avitotest.fragments;
+package com.github.ntoskrnl.avitotest.components;
 
 import android.util.Log;
 import android.view.LayoutInflater;
